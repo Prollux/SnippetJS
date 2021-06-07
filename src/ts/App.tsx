@@ -7,10 +7,14 @@ const App : FC = () => {
   const [input, setInput] = useState('')
   const [code, setCode] = useState('')
 
-  const onClick = (e) => {
+  const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (ref.current) {
-      console.log(ref.current)
+      const result = await ref.current.transform(input, {
+        loader: 'jsx',
+        target: 'es2015'
+      })
+      setCode(result.code)
     }
   }
 
@@ -19,7 +23,7 @@ const App : FC = () => {
       worker: true,
       wasmURL: '/esbuild.wasm'
     })
-    console.log(ref.current)
+
   }
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const App : FC = () => {
       <div>
         <button onClick={e => {onClick(e)}}>Submit</button>
       </div>
-      <pre></pre>
+      <pre>{code}</pre>
     </div>
   )
 }
