@@ -1,21 +1,25 @@
-import React, {FC, useState, useEffect} from 'react'
+import React, {FC, useState, useEffect, useRef} from 'react'
 import "../sass/styles.scss"
 import * as esbuild from 'esbuild-wasm'
 
 const App : FC = () => {
-  const onClick = (e) => {
-    e.preventDefault()
-    console.log(input)
-  }
+  const ref = useRef<any>();
   const [input, setInput] = useState('')
   const [code, setCode] = useState('')
 
+  const onClick = (e) => {
+    e.preventDefault()
+    if (ref.current) {
+      console.log(ref.current)
+    }
+  }
+
   const startService = async () => {
-    const service = await esbuild.startService({
+    ref.current = await esbuild.startService({
       worker: true,
       wasmURL: '/esbuild.wasm'
     })
-    console.log(service)
+    console.log(ref.current)
   }
 
   useEffect(() => {
