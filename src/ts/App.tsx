@@ -1,6 +1,7 @@
 import React, {FC, useState, useEffect, useRef} from 'react'
 import "../sass/styles.scss"
 import * as esbuild from 'esbuild-wasm'
+import { unpkgRedir } from '../plugins/unpkgRedir'
 
 const App : FC = () => {
   const ref = useRef<any>();
@@ -10,9 +11,11 @@ const App : FC = () => {
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (ref.current) {
-      const result = await ref.current.transform(input, {
-        loader: 'jsx',
-        target: 'es2015'
+      const result = await ref.current.build({
+        entryPoints: ['index.js'],
+        bundle: true,
+        write: false,
+        plugins: [unpkgRedir()]
       })
       setCode(result.code)
     }
