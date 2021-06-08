@@ -1,5 +1,6 @@
 import * as esbuild from 'esbuild-wasm'
 import axios from 'axios'
+import { urlencoded } from 'express'
 
 export const unpkgRedir = () => {
     return {
@@ -8,11 +9,20 @@ export const unpkgRedir = () => {
             build.onResolve({ filter: /.*/ }, async (args: any) => {
                 console.log('onResolve', args)
                 if (args.path === 'index.js') {
-                    return { path: args.path, namespace: 'a' }
+                    return {
+                        namespace: 'a',
+                        path: args.path 
+                    }
+                }
+                if (args.path.includes('./') || args.path.includes('../')) {
+                    return {
+                        namespace: 'a',
+                        path: new URL(args.path, 'https://unpkg.com' + args.resolveDir + '/').href
+                    }
                 }
                 return {
-                    path: (args.importer.substring(0,4) !== 'http' ? `https://unpkg.com/${args.path}` : `${args.importer}/${args.path}`),
-                    namespace: 'a'
+                    namespace: 'a',
+                    path: `https://unpkg.com/${args.path}`
                 }
             })
             build.onLoad({ filter: /.*/ }, async(args:any) => {
@@ -29,10 +39,11 @@ export const unpkgRedir = () => {
                         `,
                     }
                 } else {
-                    const { data } = await axios.get(args.path)
+                    const { data, request } = await axios.get(args.path)
                     return {
                         loader: 'jsx',
-                        contents: data
+                        contents: data,
+                        resolveDir: new URL('./', request.responseURL).pathname
                     }
                 }
             })
