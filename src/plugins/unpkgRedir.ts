@@ -11,25 +11,25 @@ export const unpkgRedir = () => {
                     return { path: args.path, namespace: 'a' }
                 }
                 return {
-                    path: (args.importer.substring(0,5) !== 'https' ? `https://unpkg.com/${args.path}` : `${args.importer}/${args.path}`),
+                    path: (args.importer.substring(0,4) !== 'http' ? `https://unpkg.com/${args.path}` : `${args.importer}/${args.path}`),
                     namespace: 'a'
                 }
             })
-
             build.onLoad({ filter: /.*/ }, async(args:any) => {
-                console.log('onLoad', args)
+                //console.log('onLoad', args)
+
 
                 if (args.path === 'index.js') {
-                    console.log(args)
+                    //console.log(args)
                     return {
                         loader: 'jsx',
                         contents: `
-                            const message = require('medium-test-pkg')
+                            const message = require('nested-test-pkg')
                             console.log(message)
                         `,
                     }
                 } else {
-                    let { data } = await axios.get(args.path)
+                    const { data } = await axios.get(args.path)
                     return {
                         loader: 'jsx',
                         contents: data
