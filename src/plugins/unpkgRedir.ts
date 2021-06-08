@@ -11,7 +11,7 @@ export const unpkgRedir = () => {
                     return { path: args.path, namespace: 'a' }
                 }
                 return {
-                    path: `https://unpkg.com/${args.path}/index.js`,
+                    path: (args.importer.substring(0,5) !== 'https' ? `https://unpkg.com/${args.path}` : `${args.importer}/${args.path}`),
                     namespace: 'a'
                 }
             })
@@ -20,10 +20,11 @@ export const unpkgRedir = () => {
                 console.log('onLoad', args)
 
                 if (args.path === 'index.js') {
+                    console.log(args)
                     return {
                         loader: 'jsx',
                         contents: `
-                            import message from 'tiny-test-pkg'
+                            const message = require('medium-test-pkg')
                             console.log(message)
                         `,
                     }
