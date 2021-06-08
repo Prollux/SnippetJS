@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild-wasm'
+import axios from 'axios'
 
 export const unpkgRedir = () => {
     return {
@@ -6,7 +7,13 @@ export const unpkgRedir = () => {
         setup(build: esbuild.PluginBuild) {
             build.onResolve({ filter: /.*/ }, async (args: any) => {
                 console.log('onResolve', args)
-                return { path: args.path, namespace: 'a' }
+                if (args.path === 'index.js') {
+                    return { path: args.path, namespace: 'a' }
+                }
+                return {
+                    path: `https://unpkg.com/${args.path}/index.js`,
+                    namespace: 'a'
+                }
             })
 
             build.onLoad({ filter: /.*/ }, async(args:any) => {
@@ -16,14 +23,15 @@ export const unpkgRedir = () => {
                     return {
                         loader: 'jsx',
                         contents: `
-                            import message from './message'
+                            import message from 'tiny-test-pkg'
                             console.log(message)
                         `,
                     }
                 } else {
+                    let { data } = await axios.get(args.path)
                     return {
                         loader: 'jsx',
-                        contents: `export default 'hello world'`
+                        contents: data
                     }
                 }
             })
