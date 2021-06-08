@@ -17,7 +17,8 @@ const App : FC = () => {
         write: false,
         plugins: [unpkgRedir()]
       })
-      setCode(result.code)
+
+      setCode(result.outputFiles[0].text)
     }
   }
 
