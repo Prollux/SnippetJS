@@ -6,7 +6,7 @@ const cache = localForage.createInstance({
     name: 'cache'
 });
 
-export const unpkgRedir = () => {
+export const unpkgRedir = (input:string) => {
     return {
         name: 'unpkg-redirect-plugin',
         setup(build: esbuild.PluginBuild) {
@@ -34,10 +34,7 @@ export const unpkgRedir = () => {
                 if (args.path === 'index.js') {
                     return {
                         loader: 'jsx',
-                        contents: `
-                            const message = require('nested-test-pkg')
-                            console.log(message)
-                        `,
+                        contents: input,
                     }
 
                 } else {

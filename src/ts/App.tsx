@@ -19,7 +19,7 @@ const App : FC = () => {
           'process.env.NODE_ENV': '"production"',
           global: 'window'
         },
-        plugins: [unpkgRedir()]
+        plugins: [unpkgRedir(input)]
       })
 
       setCode(result.outputFiles[0].text)
