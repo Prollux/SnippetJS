@@ -16,6 +16,14 @@ export const unpkgRedir = (input:string) => {
                     path: 'index.js'
                 }
             })
+
+            build.onResolve({ filter: /^\.+\//}, (args) => {
+                return {
+                    namespace: 'a',
+                    path: new URL(args.path, 'https://unpkg.com' + args.resolveDir + '/').href
+                }
+            })
+
             build.onResolve({ filter: /.*/ }, async (args: any) => {
                 if (args.path.includes('./') || args.path.includes('../')) {
                     return {
