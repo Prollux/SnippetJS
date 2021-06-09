@@ -10,13 +10,13 @@ export const unpkgRedir = (input:string) => {
     return {
         name: 'unpkg-redirect-plugin',
         setup(build: esbuild.PluginBuild) {
-            build.onResolve({ filter: /.*/ }, async (args: any) => {
-                if (args.path === 'index.js') {
-                    return {
-                        namespace: 'a',
-                        path: args.path 
-                    }
+            build.onResolve({ filter: /(^index\.js$)/}, () => {
+                return {
+                    namespace: 'a',
+                    path: 'index.js'
                 }
+            })
+            build.onResolve({ filter: /.*/ }, async (args: any) => {
                 if (args.path.includes('./') || args.path.includes('../')) {
                     return {
                         namespace: 'a',
