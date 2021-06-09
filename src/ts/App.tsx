@@ -15,6 +15,9 @@ const App : FC = () => {
         entryPoints: ['index.js'],
         bundle: true,
         write: false,
+        define: {
+          'process.env.NODE_ENV': '"production"'
+        },
         plugins: [unpkgRedir()]
       })
 
