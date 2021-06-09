@@ -16,7 +16,8 @@ const App : FC = () => {
         bundle: true,
         write: false,
         define: {
-          'process.env.NODE_ENV': '"production"'
+          'process.env.NODE_ENV': '"production"',
+          global: 'window'
         },
         plugins: [unpkgRedir()]
       })
