@@ -11,7 +11,6 @@ export const unpkgRedir = () => {
         name: 'unpkg-redirect-plugin',
         setup(build: esbuild.PluginBuild) {
             build.onResolve({ filter: /.*/ }, async (args: any) => {
-                //console.log('onResolve', args)
                 if (args.path === 'index.js') {
                     return {
                         namespace: 'a',
@@ -30,11 +29,9 @@ export const unpkgRedir = () => {
                 }
             })
             build.onLoad({ filter: /.*/ }, async(args:any) => {
-                //console.log('onLoad', args)
 
 
                 if (args.path === 'index.js') {
-                    //console.log(args)
                     return {
                         loader: 'jsx',
                         contents: `
@@ -44,13 +41,13 @@ export const unpkgRedir = () => {
                     }
 
                 } else {
-                    const cachedItem = await cache.getItem(args.path)
+                    const cachedItem= await cache.getItem<esbuild.OnLoadResult>(args.path)
                     if (cachedItem) {
                         return cachedItem
                     }
 
                     const { data, request } = await axios.get(args.path)
-                    const result = {
+                    const result:esbuild.OnLoadResult = {
                         loader: 'jsx',
                         contents: data,
                         resolveDir: new URL('./', request.responseURL).pathname
