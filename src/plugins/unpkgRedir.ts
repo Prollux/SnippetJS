@@ -1,13 +1,17 @@
 import * as esbuild from 'esbuild-wasm'
 import axios from 'axios'
-import { urlencoded } from 'express'
+import localForage from 'localforage'
+
+const cache = localForage.createInstance({
+    name: 'cache'
+});
 
 export const unpkgRedir = () => {
     return {
         name: 'unpkg-redirect-plugin',
         setup(build: esbuild.PluginBuild) {
             build.onResolve({ filter: /.*/ }, async (args: any) => {
-                console.log('onResolve', args)
+                //console.log('onResolve', args)
                 if (args.path === 'index.js') {
                     return {
                         namespace: 'a',
@@ -38,13 +42,21 @@ export const unpkgRedir = () => {
                             console.log(message)
                         `,
                     }
+
                 } else {
+                    const cachedItem = await cache.getItem(args.path)
+                    if (cachedItem) {
+                        return cachedItem
+                    }
+
                     const { data, request } = await axios.get(args.path)
-                    return {
+                    const result = {
                         loader: 'jsx',
                         contents: data,
                         resolveDir: new URL('./', request.responseURL).pathname
                     }
+                    await cache.setItem(args.path, result)
+                    return result
                 }
             })
         }
