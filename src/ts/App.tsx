@@ -2,6 +2,7 @@ import React, {FC, useState, useEffect, useRef} from 'react'
 import "../sass/styles.scss"
 import * as esbuild from 'esbuild-wasm'
 import { unpkgRedir } from '../plugins/unpkgRedir'
+import { fetchPlugin } from '../plugins/fetch-plugin'
 
 const App : FC = () => {
   const ref = useRef<any>();
@@ -19,7 +20,10 @@ const App : FC = () => {
           'process.env.NODE_ENV': '"production"',
           global: 'window'
         },
-        plugins: [unpkgRedir(input)]
+        plugins: [
+          unpkgRedir(),
+          fetchPlugin(input)
+        ]
       })
 
       setCode(result.outputFiles[0].text)
