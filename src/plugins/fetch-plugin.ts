@@ -45,10 +45,10 @@ export const fetchPlugin = (input:string) => {
             })
 
             build.onLoad({ filter: /.*/ }, async(args:any) => {
-                // const cachedItem= await cache.getItem<esbuild.OnLoadResult>(args.path)
-                // if (cachedItem) {
-                //     return cachedItem
-                // }
+                const cachedItem= await cache.getItem<esbuild.OnLoadResult>(args.path)
+                if (cachedItem) {
+                    return cachedItem
+                }
 
                 const { data, request } = await axios.get(args.path)
 
