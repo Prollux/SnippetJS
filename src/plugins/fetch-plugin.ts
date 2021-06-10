@@ -18,14 +18,16 @@ export const fetchPlugin = (input:string) => {
                     }
 
                 } else {
-                    const cachedItem= await cache.getItem<esbuild.OnLoadResult>(args.path)
-                    if (cachedItem) {
-                        return cachedItem
-                    }
+                    // const cachedItem= await cache.getItem<esbuild.OnLoadResult>(args.path)
+                    // if (cachedItem) {
+                    //     return cachedItem
+                    // }
 
                     const { data, request } = await axios.get(args.path)
+                    const loader = args.path.match(/.css$/) ? 'css' : 'jsx'
+                    debugger;
                     const result:esbuild.OnLoadResult = {
-                        loader: 'jsx',
+                        loader,
                         contents: data,
                         resolveDir: new URL('./', request.responseURL).pathname
                     }
