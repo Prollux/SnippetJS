@@ -27,6 +27,12 @@ const App : FC = () => {
       })
 
       setCode(result.outputFiles[0].text)
+
+      try {
+        eval(code)
+      } catch(err) {
+        alert(err)
+      }
     }
   }
 
@@ -35,7 +41,6 @@ const App : FC = () => {
       worker: true,
       wasmURL: '/esbuild.wasm'
     })
-
   }
 
   useEffect(() => {
@@ -49,6 +54,7 @@ const App : FC = () => {
         <button onClick={e => {onClick(e)}}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe src='../codebox.html'></iframe>
     </div>
   )
 }
