@@ -26,6 +26,7 @@ const App : FC = () => {
           fetchPlugin(input)
         ]
       })
+      iframe.current.srcdoc = html
       iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
     }
   }
