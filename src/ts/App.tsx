@@ -54,7 +54,7 @@ const App : FC = () => {
               eval(event.data)
             }
             catch (err) {
-              document.querySelector('#root').innerHTML = err
+              document.querySelector('#root').innerHTML = '<div id="cb-error">' + err + '</div>'
             }
             
           }, false)
