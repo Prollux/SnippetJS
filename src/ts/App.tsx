@@ -49,7 +49,14 @@ const App : FC = () => {
         <div id='root'></div>
         <script>
           window.addEventListener('message', (event) => {
-            eval(event.data)
+
+            try {
+              eval(event.data)
+            }
+            catch (err) {
+              document.querySelector('#root').innerText = err
+            }
+            
           }, false)
         </script>
       </body
