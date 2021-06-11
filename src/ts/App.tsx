@@ -54,7 +54,7 @@ const App : FC = () => {
               eval(event.data)
             }
             catch (err) {
-              document.querySelector('#root').innerText = err
+              document.querySelector('#root').innerHTML = err
             }
             
           }, false)
