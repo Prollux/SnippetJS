@@ -69,7 +69,7 @@ const App : FC = () => {
       <div>
         <button onClick={e => {onClick(e)}}>Submit</button>
       </div>
-      <iframe ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
+      <iframe title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
       </div>
   )
 }
