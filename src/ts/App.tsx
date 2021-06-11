@@ -12,6 +12,7 @@ const App : FC = () => {
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (ref.current) {
+      iframe.current.srcdoc = html
       const result = await ref.current.build({
         entryPoints: ['index.js'],
         bundle: true,
@@ -25,7 +26,6 @@ const App : FC = () => {
           fetchPlugin(input)
         ]
       })
-      iframe.current.srcdoc = html
       iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
     }
   }
