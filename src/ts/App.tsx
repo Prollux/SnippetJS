@@ -3,6 +3,7 @@ import "../sass/styles.scss"
 import * as esbuild from 'esbuild-wasm'
 import { unpkgRedir } from '../plugins/unpkgRedir'
 import { fetchPlugin } from '../plugins/fetch-plugin'
+import CodeEditor from './components/CodeEditor'
 
 const App : FC = () => {
   const ref = useRef<any>()
@@ -65,6 +66,7 @@ const App : FC = () => {
 
   return (
     <div>
+      <CodeEditor />
       <textarea value={input} onChange={e => {setInput(e.target.value)}} />
       <div>
         <button onClick={e => {onClick(e)}}>Submit</button>
