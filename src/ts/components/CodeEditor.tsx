@@ -1,8 +1,21 @@
 import MonacoEditor from '@monaco-editor/react'
 import React from 'react'
 
-const CodeEditor = () => {
-    return <MonacoEditor height='500px'
+interface EditorProps {
+    value: string;
+    onChange(value:string):void;
+}
+
+const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
+    const onMount = (getVal:()=> string, MonacoEditor:any) => {
+        MonacoEditor.onDidChangeModelContent(()=> {
+            onChange(getVal())
+        })
+    }
+    return <MonacoEditor 
+      value={value}
+      editorDidMount={onMount}
+      height='500px'
       width='750px'
       theme='vs-dark'
       language='javascript' options={{
