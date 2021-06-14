@@ -9,8 +9,10 @@ const App : FC = () => {
   const ref = useRef<any>()
   const iframe = useRef<any>()
   const [input, setInput] = useState('')
+  const [code, setCode] = useState('')
 
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(code)
     e.preventDefault()
     if (ref.current) {
       iframe.current.srcdoc = html
