@@ -19,8 +19,8 @@ const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
     return <MonacoEditor 
       value={value}
       editorDidMount={onMount}
-      height='500px'
-      width='750px'
+      height='calc(100% - 25px)'
+      width='60%'
       theme='vs-dark'
       language='javascript' options={{
           wordWrap:'on',

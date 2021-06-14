@@ -65,13 +65,13 @@ const App : FC = () => {
 `
 
   return (
-    <div>
+    <>
+    <div id='codebox-container'>
       <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-      <div>
-        <button onClick={e => {onClick(e)}}>Submit</button>
+      <iframe id='codebox' title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
       </div>
-      <iframe title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
-      </div>
+      <button id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
+</>
   )
 }
 
