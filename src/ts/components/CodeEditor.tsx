@@ -23,7 +23,6 @@ const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
       width='750px'
       theme='vs-dark'
       language='javascript' options={{
-          tabSize: 2,
           wordWrap:'on',
           showUnused: false,
           minimap: { enabled: false },

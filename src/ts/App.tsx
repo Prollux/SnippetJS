@@ -67,7 +67,6 @@ const App : FC = () => {
   return (
     <div>
       <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-      <textarea value={input} onChange={e => {setInput(e.target.value)}} />
       <div>
         <button onClick={e => {onClick(e)}}>Submit</button>
       </div>
