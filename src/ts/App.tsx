@@ -44,7 +44,7 @@ const App : FC = () => {
 
   
   const html = `
-  <html>
+  <html style="background-color: black; color:#39FF14">
     <head />
       <body>
         <div id='root'></div>
