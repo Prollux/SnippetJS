@@ -6,7 +6,14 @@ const CodeEditor = () => {
       width='750px'
       theme='vs-dark'
       language='javascript' options={{
-          wordWrap:'on'
+          wordWrap:'on',
+          showUnused: false,
+          minimap: { enabled: false },
+          folding: false,
+          lineNumbersMinChars: 3,
+          fontSize: 16,
+          scrollBeyondLastLine: false,
+          automaticLayout: true,
       }}/>
 }
 
