@@ -1,4 +1,4 @@
-import MonacoEditor from '@monaco-editor/react'
+import MonacoEditor, { EditorDidMount } from '@monaco-editor/react'
 import React from 'react'
 
 interface EditorProps {
@@ -7,10 +7,14 @@ interface EditorProps {
 }
 
 const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
-    const onMount = (getVal:()=> string, MonacoEditor:any) => {
+    const onMount:EditorDidMount = (getVal, MonacoEditor) => {
         MonacoEditor.onDidChangeModelContent(()=> {
             onChange(getVal())
         })
+        MonacoEditor.getModel()?.updateOptions({
+            tabSize: 2,
+        })
+        //cannot set this option in comfiguration, must use this method to update underlying model
     }
     return <MonacoEditor 
       value={value}
@@ -19,6 +23,7 @@ const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
       width='750px'
       theme='vs-dark'
       language='javascript' options={{
+          tabSize: 2,
           wordWrap:'on',
           showUnused: false,
           minimap: { enabled: false },
