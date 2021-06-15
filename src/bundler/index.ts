@@ -7,7 +7,7 @@ const bundler = async (input:string) => {
     if (!service) {
         service = await esbuild.startService({
             worker: true,
-            wasmURL: '/esbuild.wasm'
+            wasmURL: './esbuild.wasm'
         })
     } 
 
