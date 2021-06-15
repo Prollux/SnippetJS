@@ -3,7 +3,7 @@ import { unpkgRedir } from '../plugins/unpkgRedir'
 import { fetchPlugin } from '../plugins/fetch-plugin'
 
 let service:esbuild.Service
-export default async (input:string) => {
+const bundler = async (input:string) => {
     if (!service) {
         service = await esbuild.startService({
             worker: true,
@@ -27,3 +27,5 @@ export default async (input:string) => {
 
       return result.outputFiles[0].text
 }
+
+export default bundler
