@@ -6,14 +6,14 @@ html, body, #root {
 	overflow: none;
 }
 
-#codebox-container {
+#preview-container {
 	height: 95%;
 	width: 100%;
 	display: flex;
 	flex-direction: row;
 }
 
-#codebox {
+#preview {
 	border: none;
 	width: 40%;
 	height: calc(100% - 1px);

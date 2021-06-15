@@ -5,16 +5,17 @@ import * as esbuild from 'esbuild-wasm'
 import { unpkgRedir } from '../plugins/unpkgRedir'
 import { fetchPlugin } from '../plugins/fetch-plugin'
 import CodeEditor from './components/CodeEditor'
+import Preview from './components/Preview'
 
 const App : FC = () => {
   const ref = useRef<any>()
   const iframe = useRef<any>()
   const [input, setInput] = useState('')
+  const [code, setCode] = useState('')
 
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     if (ref.current) {
-      iframe.current.srcdoc = html
       const result = await ref.current.build({
         entryPoints: ['index.js'],
         bundle: true,
@@ -28,7 +29,7 @@ const App : FC = () => {
           fetchPlugin(input)
         ]
       })
-      iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
+      setCode(result.outputFiles[0].text)
     }
   }
 
@@ -43,33 +44,11 @@ const App : FC = () => {
     startService()
   }, [])
 
-  
-  const html = `
-  <html style="background-color: black; color:#39FF14">
-    <head />
-      <body>
-        <div id='root'></div>
-        <script>
-          window.addEventListener('message', (event) => {
-
-            try {
-              eval(event.data)
-            }
-            catch (err) {
-              document.querySelector('#root').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
-            }
-            
-          }, false)
-        </script>
-      </body
-    </html>
-`
-
   return (
     <>
-    <div id='codebox-container'>
+    <div id='preview-container'>
       <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-      <iframe id='codebox' title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
+      <Preview code={code} />
       </div>
       <button id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
 </>
