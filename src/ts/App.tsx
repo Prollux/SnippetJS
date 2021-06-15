@@ -6,8 +6,9 @@ import { unpkgRedir } from '../plugins/unpkgRedir'
 import { fetchPlugin } from '../plugins/fetch-plugin'
 import CodeEditor from './components/CodeEditor'
 import Preview from './components/Preview'
+import bundler from '../bundler/index'
 
-const App : FC = () => {
+const App = () => {
   const ref = useRef<any>()
   const iframe = useRef<any>()
   const [input, setInput] = useState('')
@@ -15,34 +16,9 @@ const App : FC = () => {
 
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    if (ref.current) {
-      const result = await ref.current.build({
-        entryPoints: ['index.js'],
-        bundle: true,
-        write: false,
-        define: {
-          'process.env.NODE_ENV': '"production"',
-          global: 'window'
-        },
-        plugins: [
-          unpkgRedir(),
-          fetchPlugin(input)
-        ]
-      })
-      setCode(result.outputFiles[0].text)
-    }
+    const bundle = await bundler(input)
+    setCode(bundle)
   }
-
-  const startService = async () => {
-    ref.current = await esbuild.startService({
-      worker: true,
-      wasmURL: '/esbuild.wasm'
-    })
-  }
-
-  useEffect(() => {
-    startService()
-  }, [])
 
   return (
     <>
