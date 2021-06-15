@@ -1,9 +1,6 @@
 import React, {FC, useState, useEffect, useRef} from 'react'
 import "../sass/styles.scss"
 import 'bulmaswatch/superhero/bulmaswatch.min.css'
-import * as esbuild from 'esbuild-wasm'
-import { unpkgRedir } from '../plugins/unpkgRedir'
-import { fetchPlugin } from '../plugins/fetch-plugin'
 import CodeEditor from './components/CodeEditor'
 import Preview from './components/Preview'
 import bundler from '../bundler/index'
