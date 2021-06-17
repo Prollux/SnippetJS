@@ -2,14 +2,13 @@ import { ResizableBox } from "react-resizable";
 import React, { useState, FC } from 'react'
 
 interface ResizableProps {
-    height: number;
-    width: number;
+    direction: 'horizontal' | 'vertical';
 }
 
-const Resizable:FC<ResizableProps> = ({width, height, children }) => {
+const Resizable:FC<ResizableProps> = ({direction, children }) => {
     
     return (
-        <ResizableBox width={300} height={300}>
+        <ResizableBox width={Infinity} height={2000} resizeHandles={['s']}>
             {children}
         </ResizableBox>
     )

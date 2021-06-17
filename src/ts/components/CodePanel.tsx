@@ -2,6 +2,7 @@ import React, {FC, useState, useEffect, useRef} from 'react'
 import CodeEditor from './CodeEditor'
 import Preview from './Preview'
 import bundler from '../../bundler/index'
+import Resizable from './Resizable'
 
 const CodePanel = () => {
   const ref = useRef<any>()
@@ -16,13 +17,15 @@ const CodePanel = () => {
   }
 
   return (
-    <div className='code-panel'>
-    <div id='preview-container'>
-      <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-      <Preview code={code} />
-      </div>
+    <Resizable direction={'horizontal'}>
+      <div className='code-panel'>
+        <div id='preview-container'>
+          <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
+          <Preview code={code} />
+        </div>
       <button id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
-</div>
+  </div>
+</Resizable>
   )
 }
 
