@@ -8,8 +8,14 @@ interface ResizableProps {
 const Resizable:FC<ResizableProps> = ({direction, children }) => {
     
     return (
-        <ResizableBox maxConstraints={[Infinity, window.innerHeight * 0.9]}width={Infinity} height={500} resizeHandles={['s']}>
-            {children}
+        <ResizableBox 
+          maxConstraints={[Infinity, window.innerHeight * 0.9]}
+          minConstraints={[Infinity, window.innerHeight * 0.1]}
+          width={Infinity} height={500}
+          resizeHandles={['s']}>
+
+          {children}
+
         </ResizableBox>
     )
 
