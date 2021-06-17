@@ -20,7 +20,7 @@ const CodeEditor:React.FC<EditorProps> = ({ value, onChange }) => {
       value={value}
       editorDidMount={onMount}
       height='100%'
-      width='55%'
+      width='100%'
       theme='vs-dark'
       language='javascript' options={{
           wordWrap:'on',

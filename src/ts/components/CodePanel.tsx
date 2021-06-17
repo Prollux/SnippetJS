@@ -17,13 +17,17 @@ const CodePanel = () => {
   }
 
   return (
-      <div className='code-panel'>
-        <Resizable direction='horizontal'>
-        <div id='preview-container'>
-          <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-          <Preview code={code} />
-        </div>
-      </Resizable>
+    <div className='code-panel'>
+      <Resizable direction='vertical'>
+        <div className ='panel-wrapper'>
+          <div className='editor-wrapper'>
+            <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
+          </div>
+          <div className='preview-wrapper'>
+            <Preview code={code} />
+          </div>
+      </div>
+    </Resizable>
       <button id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
   </div>
 
