@@ -2,7 +2,7 @@ import { ResizableBox } from "react-resizable";
 import React, { useState, FC } from 'react'
 
 interface ResizableProps {
-    direction: 'horizontal' | 'vertical';
+    direction: 'e' | 's';
 }
 
 const Resizable:FC<ResizableProps> = ({direction, children }) => {
@@ -12,7 +12,7 @@ const Resizable:FC<ResizableProps> = ({direction, children }) => {
           maxConstraints={[Infinity, window.innerHeight * 0.9]}
           minConstraints={[Infinity, window.innerHeight * 0.05]}
           width={Infinity} height={500}
-          resizeHandles={['s']}>
+          resizeHandles={[direction]}>
 
           {children}
 

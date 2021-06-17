@@ -18,7 +18,7 @@ const CodePanel = () => {
 
   return (
       <div className='code-panel'>
-        <Resizable direction={'horizontal'}>
+        <Resizable direction='s'>
         <div id='preview-container'>
           <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
           <Preview code={code} />
