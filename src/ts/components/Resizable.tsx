@@ -1,5 +1,5 @@
 import { ResizableBox, ResizableBoxProps } from "react-resizable";
-import React, { useState, FC } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 
 interface ResizableProps {
     direction: 'horizontal' | 'vertical';
@@ -7,23 +7,36 @@ interface ResizableProps {
 
 const Resizable:FC<ResizableProps> = ({direction, children }) => {
     let boxProps: ResizableBoxProps
+    const [width, useWidth] = useState(window.innerWidth)
+    const [height, useHeight] = useState(window.innerHeight)
+
+    useEffect(() => {
+      const windowListener = () => {
+        useWidth(window.innerWidth)
+        useHeight(window.innerHeight)
+      }
+        window.addEventListener('resize', windowListener)
+          return () => {
+            window.removeEventListener('resize', windowListener)
+          }
+    }, [])
 
     if (direction === 'horizontal') {
         boxProps =  {
             className: 'resizable-horizontal',
-            maxConstraints: [window.innerWidth * 0.75, Infinity],
-            minConstraints: [window.innerWidth * 0.2, Infinity],
-            width: window.innerWidth * 0.75,
+            maxConstraints: [height * 0.75, Infinity],
+            minConstraints: [width * 0.2, Infinity],
+            width: width * 0.75,
             height: Infinity,
             resizeHandles: ['e']
           }
     } else {
         boxProps = {
           className: 'resizable-vertical',
-          maxConstraints: [Infinity, window.innerHeight * 0.9],
-          minConstraints: [Infinity, window.innerHeight * 0.05],
+          maxConstraints: [Infinity, width * 0.9],
+          minConstraints: [Infinity, height * 0.05],
           width: Infinity,
-          height: window.innerHeight * 0.5,
+          height: height * 0.5,
           resizeHandles: ['s']
         }
     }

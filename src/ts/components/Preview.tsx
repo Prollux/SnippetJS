@@ -7,7 +7,6 @@ const html = `
 <html style="background-color: black; color:#39FF14">
   <head />
     <body>
-      <div id='root'></div>
       <script>
         window.addEventListener('message', (event) => {
 
@@ -15,7 +14,7 @@ const html = `
             eval(event.data)
           }
           catch (err) {
-            document.querySelector('#root').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
+            document.querySelector('body').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
           }
           
         }, false)
