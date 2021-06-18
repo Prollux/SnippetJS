@@ -20,9 +20,11 @@ const CodePanel = () => {
     <div className='code-panel'>
       <Resizable direction='vertical'>
         <div className ='panel-wrapper'>
-          <div className='editor-wrapper'>
-            <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
-          </div>
+          {/*<Resizable direction='horizontal'>*/}
+            <div className='editor-wrapper'>
+              <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
+            </div>
+          {/*</Resizable>*/}
           <div className='preview-wrapper'>
             <Preview code={code} />
           </div>
