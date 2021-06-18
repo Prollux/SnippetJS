@@ -11,11 +11,18 @@ const Resizable:FC<ResizableProps> = ({direction, children }) => {
     const [height, useHeight] = useState(window.innerHeight)
 
     useEffect(() => {
+      let timer: any
       const windowListener = () => {
-        useWidth(window.innerWidth)
-        useHeight(window.innerHeight)
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer =setTimeout( () => {
+          useWidth(window.innerWidth)
+          useHeight(window.innerHeight)
+        }, 100)
       }
         window.addEventListener('resize', windowListener)
+
           return () => {
             window.removeEventListener('resize', windowListener)
           }
@@ -24,19 +31,19 @@ const Resizable:FC<ResizableProps> = ({direction, children }) => {
     if (direction === 'horizontal') {
         boxProps =  {
             className: 'resizable-horizontal',
-            maxConstraints: [height * 0.75, Infinity],
+            maxConstraints: [width * 0.9, Infinity],
             minConstraints: [width * 0.2, Infinity],
-            width: width * 0.75,
+            width: width * 0.6,
             height: Infinity,
             resizeHandles: ['e']
           }
     } else {
         boxProps = {
           className: 'resizable-vertical',
-          maxConstraints: [Infinity, width * 0.9],
+          maxConstraints: [Infinity, height * 0.9],
           minConstraints: [Infinity, height * 0.05],
           width: Infinity,
-          height: height * 0.5,
+          height: height * 0.9,
           resizeHandles: ['s']
         }
     }
