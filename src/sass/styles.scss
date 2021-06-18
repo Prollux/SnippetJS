@@ -7,6 +7,7 @@ html, body, #root {
 }
 
 .code-panel {
+	margin-top: 2.5%;
 	height: 30%;
 	width: 100%;
 }
@@ -19,19 +20,25 @@ html, body, #root {
 }
 
 .editor-wrapper {
+	position: relative;
 	height: 100%;
-	width: calc(65%);
+	width: calc(100% - 10px);
 }
 
 .preview-wrapper {
 	height: 100%;
-	width:	45%;
+	flex-grow: 1;
 }
 
 #preview {
 	width: 100%;
 	height: 100%;
 	border: none;
+}
+
+.resizable-horizontal {
+	display: flex;
+	flex-direction: row;
 }
 
 .react-draggable-transparent-selection .panel-wrapper:after {

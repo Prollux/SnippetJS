@@ -10,6 +10,7 @@ const Resizable:FC<ResizableProps> = ({direction, children }) => {
 
     if (direction === 'horizontal') {
         boxProps =  {
+            className: 'resizable-horizontal',
             maxConstraints: [window.innerWidth * 0.2, Infinity],
             minConstraints: [window.innerWidth * 0.75, Infinity],
             width: window.innerWidth * 0.75,
@@ -18,6 +19,7 @@ const Resizable:FC<ResizableProps> = ({direction, children }) => {
           }
     } else {
         boxProps = {
+          className: 'resizable-vertical',
           maxConstraints: [Infinity, window.innerHeight * 0.9],
           minConstraints: [Infinity, window.innerHeight * 0.05],
           width: Infinity,

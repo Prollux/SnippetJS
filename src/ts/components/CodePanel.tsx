@@ -20,17 +20,17 @@ const CodePanel = () => {
     <div className='code-panel'>
       <Resizable direction='vertical'>
         <div className ='panel-wrapper'>
-          {/*<Resizable direction='horizontal'>*/}
+          <Resizable direction='horizontal'>
             <div className='editor-wrapper'>
               <CodeEditor value={input} onChange={(value:string)=> setInput(value)} />
             </div>
-          {/*</Resizable>*/}
+          </Resizable>
           <div className='preview-wrapper'>
             <Preview code={code} />
           </div>
       </div>
     </Resizable>
-      <button id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
+      <button className ='button' id='code-submit' onClick={e => {onClick(e)}}>Submit</button>
   </div>
 
   )
