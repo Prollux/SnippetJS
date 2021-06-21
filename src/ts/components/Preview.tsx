@@ -8,13 +8,21 @@ const html = `
   <head />
     <body>
       <script>
+        const handleError = (err) => {
+          document.querySelector('body').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
+        }
+
+        window.addEventListener('error', (event) => {
+          console.log(event)
+        })
+
         window.addEventListener('message', async (event) => {
 
           try {
             await eval(event.data)
           }
           catch (err) {
-            document.querySelector('body').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
+            handleError(err)
           }
           
         }, false)
