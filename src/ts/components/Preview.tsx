@@ -38,10 +38,11 @@ const Preview:FC<PreviewProps> = ({ code, err }) => {
         iframe.current.srcDoc = html
         iframe.current.contentWindow.postMessage(code, '*')
     }, [code])
+    debugger;
     return (
       <>
         <iframe id='preview' title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
-        {err &&  <div className='preview-error'>err</div>}
+        {err &&  <div className='preview-error'>{err}</div>}
       </>
     )
 }

@@ -17,6 +17,7 @@ const CodePanel = () => {
 
     const bundle = await bundler(input)
     setCode(bundle.code)
+    setErr(bundle.err)
   }
 
   return (

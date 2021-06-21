@@ -39,7 +39,7 @@ const bundler = async (input:string) => {
       catch (err) {
         result = {
           code: '',
-          err,
+          err: err.message
         }
     }
     return result
