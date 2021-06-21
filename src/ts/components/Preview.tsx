@@ -1,6 +1,7 @@
 import React, {FC, useRef, useEffect} from 'react'
 interface PreviewProps {
     code:string;
+    err:string;
 }
 
 const html = `
@@ -31,15 +32,17 @@ const html = `
   </html>
 `
 
-const Preview:FC<PreviewProps> = ({ code }) => {
+const Preview:FC<PreviewProps> = ({ code, err }) => {
     const iframe = useRef<any>()
-
     useEffect (() => {
         iframe.current.srcDoc = html
         iframe.current.contentWindow.postMessage(code, '*')
     }, [code])
     return (
+      <>
         <iframe id='preview' title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
+        {err &&  <div className='preview-error'>err</div>}
+      </>
     )
 }
 

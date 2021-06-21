@@ -1,19 +1,22 @@
-import React, {FC, useState, useEffect, useRef} from 'react'
+import React, { useState, useRef } from 'react'
 import CodeEditor from './CodeEditor'
 import Preview from './Preview'
 import bundler from '../../bundler/index'
 import Resizable from './Resizable'
+
 
 const CodePanel = () => {
   const ref = useRef<any>()
   const iframe = useRef<any>()
   const [input, setInput] = useState('')
   const [code, setCode] = useState('')
+  const [err, setErr] = useState('')
 
   const onClick = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
+
     const bundle = await bundler(input)
-    setCode(bundle)
+    setCode(bundle.code)
   }
 
   return (
@@ -26,7 +29,7 @@ const CodePanel = () => {
             </div>
           </Resizable>
           <div className='preview-wrapper'>
-            <Preview code={code} />
+            <Preview code={code} err={err}/>
           </div>
       </div>
     </Resizable>

@@ -2,6 +2,12 @@ import * as esbuild from 'esbuild-wasm'
 import { unpkgRedir } from '../plugins/unpkgRedir'
 import { fetchPlugin } from '../plugins/fetch-plugin'
 
+interface Bundle {
+  code:string;
+  err: string;
+}
+
+
 let service:esbuild.Service
 const bundler = async (input:string) => {
     if (!service) {
@@ -10,22 +16,33 @@ const bundler = async (input:string) => {
             wasmURL: './esbuild.wasm'
         })
     } 
-
-    const result = await service.build({
-        entryPoints: ['index.js'],
-        bundle: true,
-        write: false,
-        define: {
-          'process.env.NODE_ENV': '"production"',
-          global: 'window'
-        },
-        plugins: [
-          unpkgRedir(),
-          fetchPlugin(input)
-        ]
+    let result:Bundle
+    try {
+      const bundle = await service.build({
+          entryPoints: ['index.js'],
+          bundle: true,
+          write: false,
+          define: {
+            'process.env.NODE_ENV': '"production"',
+            global: 'window'
+          },
+          plugins: [
+            unpkgRedir(),
+            fetchPlugin(input)
+          ]
       })
-
-      return result.outputFiles[0].text
+      result = {
+        code: bundle.outputFiles[0].text,
+        err: '',
+      }
+    }
+      catch (err) {
+        result = {
+          code: '',
+          err,
+        }
+    }
+    return result
 }
 
 export default bundler
