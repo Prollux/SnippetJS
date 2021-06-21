@@ -8,10 +8,10 @@ const html = `
   <head />
     <body>
       <script>
-        window.addEventListener('message', (event) => {
+        window.addEventListener('message', async (event) => {
 
           try {
-            eval(event.data)
+            await eval(event.data)
           }
           catch (err) {
             document.querySelector('body').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
