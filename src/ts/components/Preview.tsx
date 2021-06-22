@@ -13,10 +13,6 @@ const html = `
           document.querySelector('body').innerHTML = '<div id="cb-error" style="color: red;"><h4>Runtime Error</h4>' + err + '</div>'
         }
 
-        window.addEventListener('error', (event) => {
-          console.log(event)
-        })
-
         window.addEventListener('message', async (event) => {
 
           try {
@@ -35,10 +31,11 @@ const html = `
 const Preview:FC<PreviewProps> = ({ code, err }) => {
     const iframe = useRef<any>()
     useEffect (() => {
-        iframe.current.srcDoc = html
-        iframe.current.contentWindow.postMessage(code, '*')
-    }, [code])
-    debugger;
+        iframe.current.srcdoc = html
+        setTimeout(() => {
+          iframe.current.contentWindow.postMessage(code, '*')
+    }, 50)
+  }, [code, err])
     return (
       <>
         <iframe id='preview' title='code preview' ref={iframe} sandbox='allow-scripts' srcDoc={html}/>
