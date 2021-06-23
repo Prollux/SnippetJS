@@ -1,4 +1,5 @@
 import { ActionType } from "../action-types";
+import { Panel } from "../panel"
 
 interface MovePanel {
     type: ActionType.MOVE_PANEL;
@@ -24,10 +25,7 @@ interface InsertPanel {
 
 interface UpdatePanel {
     type: ActionType.UPDATE_PANEL;
-    payload: {
-        id: number;
-        code: string;
-    }
+    payload: Panel;
 }
 
 export type Action = 
