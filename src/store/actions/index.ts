@@ -3,20 +3,30 @@ import { ActionType } from "../action-types";
 
 interface MovePanel {
     type: ActionType.MOVE_PANEL;
-    payload:any
+    payload:{
+        id:number
+        direction: 'up' | 'down';
+    }
 }
 
 interface DeletePanel {
     type: ActionType.DELETE_PANEL;
-    payload:any
+    payload:{
+        id: number
+    }
 }
 
 interface InsertPanel {
     type: ActionType.INSERT_PANEL;
-    payload:any
+    payload:{
+        id:number
+    }
 }
 
 interface UpdatePanel {
     type: ActionType.UPDATE_PANEL;
-    payload:any
+    payload: {
+        id: number;
+        code: string;
+    }
 }
