@@ -1,4 +1,3 @@
-import { Action } from "redux";
 import { ActionType } from "../action-types";
 
 interface MovePanel {
@@ -30,3 +29,9 @@ interface UpdatePanel {
         code: string;
     }
 }
+
+export type Action = 
+| MovePanel
+| DeletePanel
+| InsertPanel
+| UpdatePanel;
